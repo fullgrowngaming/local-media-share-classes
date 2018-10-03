@@ -8,6 +8,11 @@ class MediaPlayer:
         self.url = url
         self.parsed_url = self.construct_url(url)
 
+    def __init__(self):
+        self.duration = None
+        self.url = None
+        self.parsed_url = self.construct_url(self.url)
+
     def construct_url(self, url):
         if url == None:
             return None
