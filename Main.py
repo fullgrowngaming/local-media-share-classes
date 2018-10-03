@@ -1,4 +1,6 @@
 from TwitchConnection import TwitchConnection
+from MediaPlayer import MediaPlayer
+from MessageParser import *
 from Settings import NICK, CHANNEL
 
 c = TwitchConnection(NICK, CHANNEL)
@@ -13,6 +15,12 @@ while True:
         for line in temp:
             if 'PING :tmi.twitch.tv' in line:
                 c.pong()
-            else:
-                print(line)
+            elif ' PRIVMSG #' in line:
+                if ';bits=' in line and bits_parse(line) != None:
+                    print(f'{get_user(line)} cheered {bits_parse(line)} bits!')
+                    media_player = MediaPlayer(bits_parse(line), url_parse(line))
+                    media_player.play_video()
+
+
+
             

@@ -21,7 +21,7 @@ class TwitchConnection:
         self.connection.send('CAP REQ :twitch.tv/membership\r\n'.encode('utf-8'))
         self.connection.send('CAP REQ :twitch.tv/commands\r\n'.encode('utf-8'))
         
-        TwitchConnection.join_room(self)
+        self.join_room()
 
     def join_room(self):
         loading = True
@@ -35,7 +35,7 @@ class TwitchConnection:
                     print(f'{self.user.username} connected to: {self.channel}')
                     loading = False
                     
-        TwitchConnection.send_message(self, f'Joined channel: {self.channel}')
+        self.send_message(f'Joined channel: {self.channel}')
 
         
     def send_message(self, message):

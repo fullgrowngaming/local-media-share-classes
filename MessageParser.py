@@ -43,6 +43,5 @@ def url_parse(line):
     try:
         return url[0][0]
     except:
-        print('No URL linked!')
         return None
 
