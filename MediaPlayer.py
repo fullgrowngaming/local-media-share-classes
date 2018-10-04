@@ -34,3 +34,6 @@ class MediaPlayer:
                 if time.time() > end:
                     self.instance[1].stop()
                     break
+                if input() == 'skip':
+                    self.instance[1].stop()
+                    break
