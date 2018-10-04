@@ -20,9 +20,7 @@ while True:
             elif ' PRIVMSG #' in line:
                 if ';bits=' in line and bits_parse(line) != None:
                     print(f'{get_user(line)} cheered {bits_parse(line)} bits!')
-                    media_player.duration = bits_parse(line)
-                    media_player.url = url_parse(line)
-                    media_player.play_video()
+                    media_player.play_video(bits_parse(line), url_parse(line))
 
 
 
