@@ -3,15 +3,13 @@ import pafy
 import time
 
 class MediaPlayer:
-    def __init__(self, duration, url):
-        self.duration = duration
-        self.url = url
-        self.parsed_url = self.construct_url(url)
-
     def __init__(self):
-        self.duration = None
-        self.url = None
-        self.parsed_url = self.construct_url(self.url)
+        self.instance = self.create_player()
+
+    def create_player(self):
+        instance = vlc.Instance()
+        player = instance.media_player_new()
+        return (instance, player)
 
     def construct_url(self, url):
         if url == None:
@@ -21,18 +19,18 @@ class MediaPlayer:
         best = video.getbest()
         return best.url
 
-    def play_video(self):
-        if self.parsed_url != None:
-            Instance = vlc.Instance()
-            player = Instance.media_player_new()
-            Media = Instance.media_new(self.parsed_url)
-            Media.get_mrl()
-            player.set_media(Media)
-            player.play()
+    def play_video(self, duration, url):
+        parsed_url = self.construct_url(url)
+
+        if parsed_url != None:
+            media = self.instance[0].media_new(parsed_url)
+            media.get_mrl()
+            self.instance[1].set_media(media)
+            self.instance[1].play()
     
-            end = time.time() + self.duration
+            end = time.time() + duration
     
             while True:
                 if time.time() > end:
-                    player.stop()
+                    self.instance[1].stop()
                     break
