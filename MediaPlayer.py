@@ -4,12 +4,8 @@ import time
 
 class MediaPlayer:
     def __init__(self):
-        self.instance = self.create_player()
-
-    def create_player(self):
-        instance = vlc.Instance()
-        player = instance.media_player_new()
-        return (instance, player)
+        self.instance = vlc.Instance()
+        self.player = self.instance.media_player_new()
 
     def construct_url(self, url):
         if url == None:
@@ -23,17 +19,17 @@ class MediaPlayer:
         parsed_url = self.construct_url(url)
 
         if parsed_url != None:
-            media = self.instance[0].media_new(parsed_url)
+            media = self.instance.media_new(parsed_url)
             media.get_mrl()
-            self.instance[1].set_media(media)
-            self.instance[1].play()
+            self.player.set_media(media)
+            self.player.play()
     
             end = time.time() + duration
     
             while True:
                 if time.time() > end:
-                    self.instance[1].stop()
+                    self.player.stop()
                     break
                 if input() == 'skip':
-                    self.instance[1].stop()
+                    self.player.stop()
                     break
