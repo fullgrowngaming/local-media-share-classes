@@ -1,6 +1,8 @@
 import vlc
 import pafy
 import time
+import math
+
 
 class MediaPlayer:
     def __init__(self):
@@ -15,16 +17,13 @@ class MediaPlayer:
         parsed_url = pafy.new(url).getbest().url
 
         media = self.instance.media_new(parsed_url)
-        media.get_mrl()
         self.player.set_media(media)
         self.player.play()
-    
+
         end = time.time() + duration
-    
+
         while True:
+            print(math.ceil(end - time.time()))
             if time.time() > end:
-                self.player.stop()
-                break
-            if input() == 'skip':
                 self.player.stop()
                 break
