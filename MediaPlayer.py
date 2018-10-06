@@ -2,6 +2,7 @@ import vlc
 import pafy
 import time
 import math
+import threading
 
 
 class MediaPlayer:
@@ -19,11 +20,6 @@ class MediaPlayer:
         media = self.instance.media_new(parsed_url)
         self.player.set_media(media)
         self.player.play()
+        time.sleep(duration)
+        self.player.stop()
 
-        end = time.time() + duration
-
-        while True:
-            print(math.ceil(end - time.time()))
-            if time.time() > end:
-                self.player.stop()
-                break
