@@ -13,14 +13,13 @@ class MediaPlayer:
     def play_video(self):
 
         if not self.play_queue:
-            print('nope')
             return None
 
         for member in self.play_queue:
             print(member)
             if member.url == None:
+                self.play_queue.remove(member)
                 return None
-                self.play_queue.remove(QueueMember)
 
             parsed_url = pafy.new(member.url).getbest().url
 
