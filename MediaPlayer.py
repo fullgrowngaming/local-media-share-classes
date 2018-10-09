@@ -11,23 +11,12 @@ class MediaPlayer:
         self.play_queue = []
 
     def play_video(self):
-
-        if not self.play_queue:
-            return None
-
-        for member in self.play_queue:
-            print(member)
-            if member.url == None:
-                self.play_queue.remove(member)
-                return None
-
-            parsed_url = pafy.new(member.url).getbest().url
-
-            media = self.instance.media_new(parsed_url)
-            self.player.set_media(media)
-            self.player.play()
-            time.sleep(float(member.bits / bits_per_second))
-            self.player.stop()
-            self.play_queue.remove(member)
+        member = self.play_queue[0]
+        media = self.instance.media_new(member.parsed_url)
+        self.player.set_media(media)
+        self.player.play()
+        time.sleep(float(member.bits / bits_per_second))
+        self.player.stop()
+        self.play_queue.remove(member)
 
 
