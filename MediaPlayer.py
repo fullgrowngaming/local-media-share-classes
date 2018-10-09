@@ -1,25 +1,34 @@
 import vlc
 import pafy
 import time
-import math
-import threading
-
+from Settings import bits_per_second
+from QueueMember import QueueMember
 
 class MediaPlayer:
     def __init__(self):
         self.instance = vlc.Instance()
         self.player = self.instance.media_player_new()
+        self.play_queue = []
 
-    def play_video(self, duration, url):
+    def play_video(self):
 
-        if url == None:
+        if not self.play_queue:
+            print('nope')
             return None
 
-        parsed_url = pafy.new(url).getbest().url
+        for member in self.play_queue:
+            print(member)
+            if member.url == None:
+                return None
+                self.play_queue.remove(QueueMember)
 
-        media = self.instance.media_new(parsed_url)
-        self.player.set_media(media)
-        self.player.play()
-        time.sleep(duration)
-        self.player.stop()
+            parsed_url = pafy.new(member.url).getbest().url
+
+            media = self.instance.media_new(parsed_url)
+            self.player.set_media(media)
+            self.player.play()
+            time.sleep(float(member.bits / bits_per_second))
+            self.player.stop()
+            self.play_queue.remove(member)
+
 
