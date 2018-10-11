@@ -17,15 +17,17 @@ class MediaPlayer:
         self.play_queue.append(QueueMember)
 
     def play_video(self):
-        while True:
+        while True: #this outer loop exists for multithreading purposees
             while self.play_queue:
-                for entry in self.play_queue:
-                    print(f'{entry}, {len(self.play_queue)} remaining')
                 member = self.play_queue[0]
+                if self.play_queue[0].pafy == None: #sloppy way of handling invalid video IDs
+                    self.play_queue.remove(member)
+                    break
                 media = self.instance.media_new(member.parsed_url)
                 self.player.set_media(media)
+                duration = min(self.play_queue[0].video_length, self.play_queue[0].bits)
                 self.player.play()
-                time.sleep(float(member.bits / bits_per_second))
+                time.sleep(float(duration / bits_per_second))
                 self.player.stop()
                 self.play_queue.remove(member)
 

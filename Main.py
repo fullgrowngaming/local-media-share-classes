@@ -18,9 +18,9 @@ if __name__ == "__main__":
             if 'PING :tmi.twitch.tv' in line:
                 c.pong()
             elif ' PRIVMSG #' in line:
-                    print(f'{get_user(line)} cheered {bits_parse(line)} bits!')
+                    print(f'{get_user(line)} shared a song!')
                     if url_parse(line) != None:
-                        player.add_to_queue(QueueMember(get_user(line), 10, url_parse(line)))
+                        player.add_to_queue(QueueMember(get_user(line), 100, url_parse(line)))
 
 
 
