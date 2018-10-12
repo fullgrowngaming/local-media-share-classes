@@ -1,6 +1,6 @@
 # local-media-share-classes
 
-This is a program designed to allow bit media sharing for Twitch.tv streamers.
+This is a program designed to allow bit media sharing for Twitch.tv streamers. Simply change the relevant information in Settings.py and start 'er up.
 
 Features:
 ---------
