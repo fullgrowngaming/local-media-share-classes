@@ -30,10 +30,11 @@ if __name__ == "__main__":
         for line in temp:
             if 'PING :tmi.twitch.tv' in line:
                 c.pong()
-            elif ' PRIVMSG #' in line:
-                    print(f'{get_user(line)} shared a song!')
+            elif ';bits=' in line and bits_parse(line) != None:
+                    print(f'{get_user(line)} cheered {bits_parse(line) bits}!')
                     if url_parse(line) != None:
-                        player.add_to_queue(QueueMember(get_user(line), 5, url_parse(line)))
+                        print(f'{get_user(line)} shared a video!')
+                        player.add_to_queue(QueueMember(get_user(line), bits_parse(line), url_parse(line)))
 
 
 
