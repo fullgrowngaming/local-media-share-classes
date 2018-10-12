@@ -1,5 +1,4 @@
 import vlc
-import pafy
 import time
 import threading
 from Settings import bits_per_second
@@ -10,7 +9,7 @@ class MediaPlayer:
         self.instance = vlc.Instance()
         self.player = self.instance.media_player_new()
         self.play_queue = []
-        self.play_thread = threading.Thread(target=self.play_video)
+        self.play_thread = threading.Thread(target=self.play_video, daemon=True)
         self.play_thread.start()
 
     def add_to_queue(self, QueueMember):
@@ -25,10 +24,11 @@ class MediaPlayer:
                     break
                 media = self.instance.media_new(member.parsed_url)
                 self.player.set_media(media)
-                duration = min(self.play_queue[0].video_length, self.play_queue[0].bits)
+                duration = min(self.play_queue[0].video_length, self.play_queue[0].bits) #handles short videos
                 self.player.play()
                 time.sleep(float(duration / bits_per_second))
                 self.player.stop()
                 self.play_queue.remove(member)
+            time.sleep(1)
 
 
