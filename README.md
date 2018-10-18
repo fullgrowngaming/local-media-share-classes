@@ -9,3 +9,10 @@ Queue system - videos cheered in chat are handled and played in the order they w
 Bits per second - you can change the bits needed to play a second of media in the settings file
 
 In the future, I will add support for media sharing upon receiving subscribers, gift subs, and donations, as well as perhaps implementing a system where the program remembers that a user cheered and allows them to submit a video at a later time.
+
+3rd-Party Modules Used:
+-----------
+python-vlc
+pafy
+youtube-dl
+
