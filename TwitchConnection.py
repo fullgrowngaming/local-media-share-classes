@@ -45,7 +45,6 @@ class TwitchConnection:
 
     def pong(self):
         self.connection.send(('PONG :tmi.twitch.tv' + '\r\n').encode('utf-8'))
-        print('Sent: PONG')
 
 
 

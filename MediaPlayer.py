@@ -11,6 +11,7 @@ class MediaPlayer:
         self.play_queue = []
         self.play_thread = threading.Thread(target=self.play_video, daemon=True)
         self.play_thread.start()
+        self.playing = False
 
     def add_to_queue(self, QueueMember):
         self.play_queue.append(QueueMember)
@@ -26,8 +27,10 @@ class MediaPlayer:
                 self.player.set_media(media)
                 duration = min(self.play_queue[0].video_length, self.play_queue[0].bits) #handles short videos
                 self.player.play()
+                self.playing = True
                 time.sleep(float(duration / bits_per_second))
                 self.player.stop()
+                self.playing = False
                 self.play_queue.remove(member)
             time.sleep(1)
 
